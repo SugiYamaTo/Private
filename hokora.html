@@ -38,12 +38,14 @@
     <!-- 効果音ファイル -->
     <audio id="clickSound" src="sound.mp3"></audio>
     <audio id="resetSound" src="reset_sound.mp3"></audio> <!-- 別の音声ファイルを追加 -->
+    <audio id="warningSound" src="warning_sound.mp3"></audio> <!-- 警告時の音声ファイルを追加 -->
 
     <script>
         const mainImage = document.getElementById('mainImage');
         const resetButton = document.getElementById('resetButton');
         const clickSound = document.getElementById('clickSound');
         const resetSound = document.getElementById('resetSound');
+        const warningSound = document.getElementById('warningSound');
         const warningMessage = document.getElementById('warningMessage');
         const infoMessage = document.getElementById('infoMessage');
 
@@ -72,21 +74,35 @@
 
                 // クリック回数が10回を超えた場合
                 if (clickCount >= 10) {
+                    // クリック無効化
+                    canClickImage = false;
+
                     // 警告メッセージを表示
                     warningMessage.style.display = 'block';
                     
-                    // 2秒後に非表示にする
+                    // 警告音を再生
+                    warningSound.currentTime = 0;
+                    warningSound.play();
+
+                    // 警告音の再生時間分クリックを無効化
+                    const warningSoundDuration = warningSound.duration * 1000; // 再生時間をミリ秒に変換
+
+                    // 警告メッセージを2秒間表示
                     setTimeout(() => {
                         warningMessage.style.display = 'none';
                     }, 2000);
 
-                    clickCount = 0; // クリックカウントをリセット
+                    // 再生終了後にクリックを再度有効化
+                    setTimeout(() => {
+                        canClickImage = true;
+                        clickCount = 0; // クリックカウントをリセット
+                    }, warningSoundDuration);
+                } else {
+                    // 画像を2番目の画像に切り替え
+                    mainImage.src = 'image2.jpg';
+                    currentImage = 2;
+                    resetButton.style.display = 'block';  // ボタンを表示
                 }
-
-                // 画像を2番目の画像に切り替え
-                mainImage.src = 'image2.jpg';
-                currentImage = 2;
-                resetButton.style.display = 'block';  // ボタンを表示
             }
         });
 
@@ -96,18 +112,11 @@
             resetSound.currentTime = 0;  // リセット音の再生位置をリセット
             resetSound.play();
 
-            // クリックを一時的に無効化
-            canClickImage = false;
-
-            // 0.5秒後に画像を1枚目に戻す
-            setTimeout(() => {
-                mainImage.src = 'image1.jpg';
-                currentImage = 1;
-                resetButton.style.display = 'none';  // ボタンを非表示
-
-                // 再度クリックを有効化
-                canClickImage = true;
-            }, 500); // 0.5秒のディレイ
+            // 画像を1枚目に戻す
+            mainImage.src = 'image1.jpg';
+            currentImage = 1;
+            resetButton.style.display = 'none';  // ボタンを非表示
+            canClickImage = true; // 再度クリックを有効化
         });
     </script>
 </body>
