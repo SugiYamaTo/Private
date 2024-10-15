@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像切り替え</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 画像を中央に配置 -->
+    <div class="container">
+        <img id="mainImage" src="image1.jpg" alt="Image 1">
+    </div>
+    
+    <!-- 左下に「再建する」ボタン（初期状態では非表示） -->
+    <button id="resetButton" class="reset-button" style="display: none;">再建する</button>
+    
+    <!-- 効果音ファイル -->
+    <audio id="clickSound" src="sound.mp3"></audio>
+    <audio id="resetSound" src="reset_sound.mp3"></audio> <!-- 別の音声ファイルを追加 -->
+
+    <script>
+        const mainImage = document.getElementById('mainImage');
+        const resetButton = document.getElementById('resetButton');
+        const clickSound = document.getElementById('clickSound');
+        const resetSound = document.getElementById('resetSound'); // 新しい音声ファイルを取得
+
+        let currentImage = 1;
+
+        // 画像クリック時のイベント
+        mainImage.addEventListener('click', () => {
+            // 効果音を再生
+            clickSound.play();
+
+            // 画像を切り替え
+            if (currentImage === 1) {
+                mainImage.src = 'image2.jpg';
+                currentImage = 2;
+                resetButton.style.display = 'block';  // ボタンを表示
+            } else {
+                mainImage.src = 'image1.jpg';
+                currentImage = 1;
+                resetButton.style.display = 'none';  // ボタンを非表示
+            }
+        });
+
+        // 「再建する」ボタンのクリックイベント
+        resetButton.addEventListener('click', () => {
+            // 別の効果音を再生
+            resetSound.play();
+            
+            // 1枚目の画像に切り替え
+            mainImage.src = 'image1.jpg';
+            currentImage = 1;
+            resetButton.style.display = 'none';  // ボタンを非表示
+        });
+    </script>
+</body>
+</html>
