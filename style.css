@@ -1,42 +1,85 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    background-color: #ffffff; /* 背景色を白色に設定 */
 }
 
 .container {
-    position: relative;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ビューポートの高さを100%に設定 */
 }
 
-#mainImage {
-    width: 300px;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+img {
+    max-width: 90%; /* 画像が画面の90%を超えないように設定 */
+    height: auto; /* 高さは自動調整 */
 }
 
-#mainImage:hover {
-    transform: scale(1.05);
+#warningMessage, #infoMessage {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black; /* 文字色を黒に設定 */
+    padding: 20px;
+    border: 2px solid black; /* 枠を追加 */
+    border-radius: 10px; /* 角を丸める */
+    font-size: 18px;
+    background: white; /* 背景を白に設定 */
+}
+
+#titleMessage {
+    display: none; /* 初期状態で非表示 */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black; /* 文字色を黒に設定 */
+    padding: 20px;
+    font-size: 24px; /* フォントサイズを大きく */
+}
+
+#infoMessage {
+    top: 50%; /* インフォメーションメッセージの位置 */
+}
+
+#warningMessage {
+    top: 60%; /* 警告メッセージの位置 */
+}
+
+#version {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: gray;
+    font-size: 12px;
 }
 
 .reset-button {
+    display: none; /* 初期状態では非表示 */
     position: absolute;
     bottom: 20px;
     left: 20px;
     padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+    font-size: 18px;
+    border: 2px solid black; /* 枠を追加 */
+    border-radius: 5px; /* 角を丸める */
+    background-color: white; /* 背景色を白に設定 */
+    cursor: pointer; /* カーソルをポインタに */
 }
 
 .reset-button:hover {
-    background-color: #45a049;
+    background-color: #f0f0f0; /* ホバー時の背景色変更 */
+}
+
+#bgmControl {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
