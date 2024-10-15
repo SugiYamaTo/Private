@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bremerhaven Hokora</title>
+    <title>Breaking Hokora</title>
     <link rel="stylesheet" href="style.css">
     <style>
         #warningMessage {
@@ -52,6 +52,7 @@
                 clickCount++;
                 
                 // 効果音を再生
+                clickSound.currentTime = 0;  // 効果音の再生位置をリセット
                 clickSound.play();
 
                 // クリック回数が10回を超えた場合
@@ -77,6 +78,7 @@
         // 「再建する」ボタンのクリックイベント
         resetButton.addEventListener('click', () => {
             // 別の効果音を再生
+            resetSound.currentTime = 0;  // リセット音の再生位置をリセット
             resetSound.play();
             
             // 1枚目の画像に切り替え
