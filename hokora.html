@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breaking Hokora</title>
+    <title>画像切り替え</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -29,18 +29,15 @@
 
         // 画像クリック時のイベント
         mainImage.addEventListener('click', () => {
-            // 効果音を再生
-            clickSound.play();
-
-            // 画像を切り替え
+            // 1番目の画像のときのみ反応する
             if (currentImage === 1) {
+                // 効果音を再生
+                clickSound.play();
+
+                // 画像を2番目の画像に切り替え
                 mainImage.src = 'image2.jpg';
                 currentImage = 2;
                 resetButton.style.display = 'block';  // ボタンを表示
-            } else {
-                mainImage.src = 'image1.jpg';
-                currentImage = 1;
-                resetButton.style.display = 'none';  // ボタンを非表示
             }
         });
 
