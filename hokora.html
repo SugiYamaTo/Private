@@ -49,6 +49,7 @@
 
         let currentImage = 1;
         let clickCount = 0;
+        let canClickImage = true; // 画像クリックの可否
 
         // ページ読み込み時にメッセージを表示
         window.onload = () => {
@@ -62,7 +63,7 @@
 
         // 画像クリック時のイベント
         mainImage.addEventListener('click', () => {
-            if (currentImage === 1) {
+            if (canClickImage && currentImage === 1) {
                 clickCount++;
                 
                 // 効果音を再生
@@ -91,14 +92,22 @@
 
         // 「再建する」ボタンのクリックイベント
         resetButton.addEventListener('click', () => {
-            // 別の効果音を再生
+            // 効果音を再生
             resetSound.currentTime = 0;  // リセット音の再生位置をリセット
             resetSound.play();
-            
-            // 1枚目の画像に切り替え
-            mainImage.src = 'image1.jpg';
-            currentImage = 1;
-            resetButton.style.display = 'none';  // ボタンを非表示
+
+            // クリックを一時的に無効化
+            canClickImage = false;
+
+            // 0.5秒後に画像を1枚目に戻す
+            setTimeout(() => {
+                mainImage.src = 'image1.jpg';
+                currentImage = 1;
+                resetButton.style.display = 'none';  // ボタンを非表示
+
+                // 再度クリックを有効化
+                canClickImage = true;
+            }, 500); // 0.5秒のディレイ
         });
     </script>
 </body>
