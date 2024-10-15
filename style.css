@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #ffffff; /* 背景色を白色に設定 */
+    background-color: #f0f0f0; /* 背景色を設定 */
 }
 
 .container {
@@ -16,27 +16,19 @@ img {
     height: auto; /* 高さは自動調整 */
 }
 
-#warningMessage, #infoMessage {
+#warningMessage, #infoMessage, #titleMessage {
     display: none;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: black; /* 文字色を黒に設定 */
+    color: white;
     padding: 20px;
-    border: 2px solid black; /* 枠を追加 */
-    border-radius: 10px; /* 角を丸める */
+    border-radius: 10px;
     font-size: 18px;
-    background: white; /* 背景を白に設定 */
 }
 
 #titleMessage {
-    display: none; /* 初期状態で非表示 */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: black; /* 文字色を黒に設定 */
-    padding: 20px;
-    font-size: 24px; /* フォントサイズを大きく */
+    top: 30%; /* タイトルの位置を上に移動 */
 }
 
 #infoMessage {
@@ -53,23 +45,6 @@ img {
     right: 10px;
     color: gray;
     font-size: 12px;
-}
-
-.reset-button {
-    display: none; /* 初期状態では非表示 */
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    border: 2px solid black; /* 枠を追加 */
-    border-radius: 5px; /* 角を丸める */
-    background-color: white; /* 背景色を白に設定 */
-    cursor: pointer; /* カーソルをポインタに */
-}
-
-.reset-button:hover {
-    background-color: #f0f0f0; /* ホバー時の背景色変更 */
 }
 
 #bgmControl {
