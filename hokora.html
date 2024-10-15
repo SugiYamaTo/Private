@@ -6,7 +6,7 @@
     <title>Breaking Hokora</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        #warningMessage, #infoMessage {
+        #warningMessage, #infoMessage, #titleMessage {
             display: none;
             position: absolute;
             top: 50%;
@@ -17,6 +17,14 @@
             padding: 20px;
             border-radius: 10px;
             font-size: 18px;
+        }
+
+        #version {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            color: gray;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -34,6 +42,12 @@
 
     <!-- サイト読み込み時のメッセージ（初期状態では非表示） -->
     <div id="infoMessage">クリックで祠を壊せます。</div>
+    
+    <!-- ゲームタイトルメッセージ（初期状態では非表示） -->
+    <div id="titleMessage">祠破壊ゲーム</div>
+
+    <!-- バージョン表示 -->
+    <div id="version">ver1.01</div>
 
     <!-- 効果音ファイル -->
     <audio id="clickSound" src="sound.mp3"></audio>
@@ -48,16 +62,25 @@
         const warningSound = document.getElementById('warningSound');
         const warningMessage = document.getElementById('warningMessage');
         const infoMessage = document.getElementById('infoMessage');
+        const titleMessage = document.getElementById('titleMessage');
 
         let currentImage = 1;
         let clickCount = 0;
         let canClickImage = true; // 画像クリックの可否
 
-        // ページ読み込み時にメッセージを表示
+        // ページ読み込み時にゲームタイトルメッセージを表示
         window.onload = () => {
+            titleMessage.style.display = 'block';
+
+            // 10秒後にタイトルメッセージを非表示にする
+            setTimeout(() => {
+                titleMessage.style.display = 'none';
+            }, 10000);
+
+            // インフォメーションメッセージを表示
             infoMessage.style.display = 'block';
 
-            // 3秒後にメッセージを非表示にする
+            // 3秒後にインフォメーションメッセージを非表示にする
             setTimeout(() => {
                 infoMessage.style.display = 'none';
             }, 3000);
