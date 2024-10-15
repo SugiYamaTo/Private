@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>画像切り替え</title>
+    <title>Bremerhaven Hokora</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #warningMessage {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
     <!-- 画像を中央に配置 -->
@@ -15,6 +29,9 @@
     <!-- 左下に「再建する」ボタン（初期状態では非表示） -->
     <button id="resetButton" class="reset-button" style="display: none;">再建する</button>
     
+    <!-- 警告メッセージ（初期状態では非表示） -->
+    <div id="warningMessage">お前は祠を壊しすぎた</div>
+
     <!-- 効果音ファイル -->
     <audio id="clickSound" src="sound.mp3"></audio>
     <audio id="resetSound" src="reset_sound.mp3"></audio> <!-- 別の音声ファイルを追加 -->
@@ -23,16 +40,32 @@
         const mainImage = document.getElementById('mainImage');
         const resetButton = document.getElementById('resetButton');
         const clickSound = document.getElementById('clickSound');
-        const resetSound = document.getElementById('resetSound'); // 新しい音声ファイルを取得
+        const resetSound = document.getElementById('resetSound');
+        const warningMessage = document.getElementById('warningMessage');
 
         let currentImage = 1;
+        let clickCount = 0;
 
         // 画像クリック時のイベント
         mainImage.addEventListener('click', () => {
-            // 1番目の画像のときのみ反応する
             if (currentImage === 1) {
+                clickCount++;
+                
                 // 効果音を再生
                 clickSound.play();
+
+                // クリック回数が10回を超えた場合
+                if (clickCount >= 10) {
+                    // 警告メッセージを表示
+                    warningMessage.style.display = 'block';
+                    
+                    // 2秒後に非表示にする
+                    setTimeout(() => {
+                        warningMessage.style.display = 'none';
+                    }, 2000);
+
+                    clickCount = 0; // クリックカウントをリセット
+                }
 
                 // 画像を2番目の画像に切り替え
                 mainImage.src = 'image2.jpg';
