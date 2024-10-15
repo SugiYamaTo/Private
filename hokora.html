@@ -6,7 +6,7 @@
     <title>Breaking Hokora</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        #warningMessage {
+        #warningMessage, #infoMessage {
             display: none;
             position: absolute;
             top: 50%;
@@ -32,6 +32,9 @@
     <!-- 警告メッセージ（初期状態では非表示） -->
     <div id="warningMessage">お前は祠を壊しすぎた</div>
 
+    <!-- サイト読み込み時のメッセージ（初期状態では非表示） -->
+    <div id="infoMessage">クリックで祠を壊せます。</div>
+
     <!-- 効果音ファイル -->
     <audio id="clickSound" src="sound.mp3"></audio>
     <audio id="resetSound" src="reset_sound.mp3"></audio> <!-- 別の音声ファイルを追加 -->
@@ -42,9 +45,20 @@
         const clickSound = document.getElementById('clickSound');
         const resetSound = document.getElementById('resetSound');
         const warningMessage = document.getElementById('warningMessage');
+        const infoMessage = document.getElementById('infoMessage');
 
         let currentImage = 1;
         let clickCount = 0;
+
+        // ページ読み込み時にメッセージを表示
+        window.onload = () => {
+            infoMessage.style.display = 'block';
+
+            // 3秒後にメッセージを非表示にする
+            setTimeout(() => {
+                infoMessage.style.display = 'none';
+            }, 3000);
+        };
 
         // 画像クリック時のイベント
         mainImage.addEventListener('click', () => {
