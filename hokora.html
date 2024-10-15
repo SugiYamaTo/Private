@@ -26,6 +26,18 @@
             color: gray;
             font-size: 12px;
         }
+
+        #bgmControl {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -51,8 +63,17 @@
 
     <!-- 効果音ファイル -->
     <audio id="clickSound" src="sound.mp3"></audio>
-    <audio id="resetSound" src="reset_sound.mp3"></audio> <!-- 別の音声ファイルを追加 -->
-    <audio id="warningSound" src="warning_sound.mp3"></audio> <!-- 警告時の音声ファイルを追加 -->
+    <audio id="resetSound" src="reset_sound.mp3"></audio>
+    <audio id="warningSound" src="warning_sound.mp3"></audio>
+
+    <!-- BGMファイル -->
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mp3">
+        あなたのブラウザはオーディオタグに対応していません。
+    </audio>
+    
+    <!-- BGMコントロールボタン -->
+    <button id="bgmControl">BGM: ON</button>
 
     <script>
         const mainImage = document.getElementById('mainImage');
@@ -63,6 +84,8 @@
         const warningMessage = document.getElementById('warningMessage');
         const infoMessage = document.getElementById('infoMessage');
         const titleMessage = document.getElementById('titleMessage');
+        const bgm = document.getElementById('bgm');
+        const bgmControl = document.getElementById('bgmControl');
 
         let currentImage = 1;
         let clickCount = 0;
@@ -84,6 +107,9 @@
             setTimeout(() => {
                 infoMessage.style.display = 'none';
             }, 3000);
+
+            // BGMを自動再生
+            bgm.play();
         };
 
         // 画像クリック時のイベント
@@ -100,6 +126,9 @@
                     // クリック無効化
                     canClickImage = false;
 
+                    // BGMを一時停止
+                    bgm.pause();
+
                     // 警告メッセージを表示
                     warningMessage.style.display = 'block';
                     
@@ -115,10 +144,11 @@
                         warningMessage.style.display = 'none';
                     }, 2000);
 
-                    // 再生終了後にクリックを再度有効化
+                    // 再生終了後にクリックを再度有効化し、BGMを再開
                     setTimeout(() => {
                         canClickImage = true;
                         clickCount = 0; // クリックカウントをリセット
+                        bgm.play(); // BGMを再開
                     }, warningSoundDuration);
                 } else {
                     // 画像を2番目の画像に切り替え
@@ -145,6 +175,17 @@
             setTimeout(() => {
                 canClickImage = true; // 0.5秒後にクリックを再度有効化
             }, 500); // 0.5秒のディレイ
+        });
+
+        // BGMコントロールボタンのクリックイベント
+        bgmControl.addEventListener('click', () => {
+            if (bgm.paused) {
+                bgm.play();
+                bgmControl.textContent = 'BGM: ON'; // ボタンのテキストを更新
+            } else {
+                bgm.pause();
+                bgmControl.textContent = 'BGM: OFF'; // ボタンのテキストを更新
+            }
         });
     </script>
 </body>
