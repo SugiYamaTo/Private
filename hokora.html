@@ -9,14 +9,25 @@
         #warningMessage, #infoMessage, #titleMessage {
             display: none;
             position: absolute;
-            top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 20px;
             border-radius: 10px;
             font-size: 18px;
+        }
+
+        #titleMessage {
+            top: 30%; /* タイトルの位置を上に移動 */
+        }
+
+        #infoMessage {
+            top: 50%; /* インフォメーションメッセージの位置 */
+        }
+
+        #warningMessage {
+            top: 60%; /* 警告メッセージの位置 */
         }
 
         #version {
@@ -59,7 +70,7 @@
     <div id="titleMessage">祠破壊ゲーム</div>
 
     <!-- バージョン表示 -->
-    <div id="version">ver1.01</div>
+    <div id="version">ver1.03</div>
 
     <!-- 効果音ファイル -->
     <audio id="clickSound" src="sound.mp3"></audio>
