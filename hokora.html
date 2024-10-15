@@ -116,7 +116,12 @@
             mainImage.src = 'image1.jpg';
             currentImage = 1;
             resetButton.style.display = 'none';  // ボタンを非表示
-            canClickImage = true; // 再度クリックを有効化
+            
+            // クリックを0.5秒間無効化
+            canClickImage = false;
+            setTimeout(() => {
+                canClickImage = true; // 0.5秒後にクリックを再度有効化
+            }, 500); // 0.5秒のディレイ
         });
     </script>
 </body>
